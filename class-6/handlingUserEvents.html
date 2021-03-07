@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<title>Example Handling of User Events</title>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	</head>
+
+	<body>
+		<form id="form">
+			<label>
+				First Name
+			</label>
+
+			<input id="first-name" type="text" name="firstName" placeholder="Type your first name" />
+
+			<label>
+				Last Name
+			</label>
+
+			<input id="last-name" type="text" name="lastName" placeholder="Type your last name" />
+
+			<label>
+				Email
+			</label>
+
+			<input id="email" type="text" name="email" placeholder="Type your email" />
+
+			<button id="submit" type="submit">Submit</button>
+		</form>
+
+		<script>
+			function handleSubmit(event) {
+				event.preventDefault();
+
+				alert('Thank you!');
+			}
+
+			function changeColor(event) {
+				event.target.style.backgroundColor = 'blue';
+				event.target.style.color = 'red';
+			}
+
+			function removeColor(event) {
+				event.target.style.backgroundColor = null;
+				event.target.style.color = null;
+			}
+
+			// Native approach
+			const submitBtn = document.getElementById('submit');
+			submitBtn.addEventListener('mouseenter', changeColor);
+			submitBtn.addEventListener('mouseleave', removeColor);
+			submitBtn.addEventListener('click', handleSubmit);
+
+			// jQuery approach
+			function changeInputBackgroundColor(event) {
+				const cssChanges = {
+					backgroundColor: 'green',
+					color: 'black',
+					borderColor: 'white',
+					height: '100px'
+				};
+				$(event.target).css(cssChanges);
+			}
+
+			(function($) {
+				$('#first-name').on('focus', changeInputBackgroundColor);
+			})(jQuery);
+
+			// Window resizing
+			function askUserToStopResizing() {
+				alert('Hey you! Stop doing that!');
+			}
+
+			window.onresize = askUserToStopResizing;
+		</script>
+	</body>
+</html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<title>Example Document Methods</title>
+	</head>
+
+	<body>
+		<nav id="nav">
+			<ul class="contemporary-style">
+				<li>
+					Home
+				</li>
+				<li>
+					About
+				</li>
+				<li>
+					Contact
+				</li>
+			</ul>
+		</nav>
+
+		<script>
+			// Access the navigation node
+			const navigation = document.getElementById('nav');
+
+			console.log('NAV: ', navigation);
+
+			// Access the unordered list node
+			const list = navigation.querySelector('ul');
+
+			// Change it to modern style
+			list.setAttribute('class', 'modern-style');
+
+			console.log('LIST: ', list);
+
+			// Get all existing list items
+			const allItems = list.querySelectorAll('li');
+
+			console.log('ALL LIST ITEMS: ', allItems);
+
+			// Created a new list item node
+			const newListItemNode = document.createElement('li');
+
+			// We added the new list item node as a child to the unordered list node
+			list.appendChild(newListItemNode);
+
+			// Created a new text node
+			const newTextNode = document.createTextNode('Movies');
+
+			// Appended the new text node to the new list item node
+			newListItemNode.appendChild(newTextNode);
+
+			// Undo everything we did
+			newListItemNode.removeChild(newTextNode);
+			list.removeChild(newListItemNode);
+
+			// Going nuts - remove the nav
+			navigation.remove();
+		</script>
+	</body>
+</html>
