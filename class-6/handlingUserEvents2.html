@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<title>Example 2 Handling of User Events</title>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+		<style type="text/css">
+			* {
+				font-size: 24px;
+			}
+
+			.dark {
+				background: black;
+				color: white;
+			}
+
+			.light {
+				background: white:
+				color: black;
+			}
+		</style>
+	</head>
+
+	<body class="dark">
+		<p>
+			You are currently in <span id="theme">dark</span> theme.
+		</p>
+
+		<button id="button">
+			Toggle Theme
+		</button>
+
+		<script>
+			const darkTheme = 'dark';
+			const lightTheme = 'light';
+
+			function onClick() {
+				const currentTheme = document.body.getAttribute('class');
+				const themeNode = document.getElementById('theme');
+
+				if (currentTheme === 'light') {
+					document.body.setAttribute('class', 'dark');
+					themeNode.textContent = 'dark';
+				} else {
+					document.body.setAttribute('class', 'light');
+					themeNode.textContent = 'light';
+				}
+			}
+
+			const button = document.getElementById('button');
+
+			button.addEventListener('click', onClick);
+		</script>
+	</body>
+</html>
