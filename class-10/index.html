@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<title>App Calling API</title>
+	</head>
+
+	<body>
+		<h1>
+			API Application
+		</h1>
+
+		<form id="form-get">
+			<label>
+				Car ID
+			</label>
+
+			<input type="number" name="id" />
+
+			<br />
+
+			<button type="submit" id="get-car">
+				Get Car
+			</button>
+		</form>
+
+		<div id="data-dump">
+
+		</div>
+
+		<h2>
+			Create a new car
+		</h2>
+
+		<form id="form-create">
+			<label>
+				Color
+			</label>
+
+			<input type="text" name="color" />
+
+			<br />
+
+			<label>
+				Make
+			</label>
+
+			<input type="text" name="make" />
+
+			<br />
+
+			<label>
+				Model
+			</label>
+
+			<input type="text" name="model" />
+
+			<br />
+
+			<label>
+				Year
+			</label>
+
+			<input type="number" name="year" />
+
+			<br />
+
+			<label>
+				Features
+			</label>
+
+			<textarea name="features"></textarea>
+
+			<br />
+
+			<button type="submit" id="create-car">Create Car</button>
+
+			<br />
+
+			<span></span>
+		</form>
+
+		<h2>
+			Update an existing car
+		</h2>
+		
+		<form id="form-update">
+			<label>
+				ID
+			</label>
+
+			<input type="number" name="id" />
+
+			<br />
+
+			<label>
+				Color
+			</label>
+
+			<input type="text" name="color" />
+
+			<br />
+
+			<label>
+				Make
+			</label>
+
+			<input type="text" name="make" />
+
+			<br />
+
+			<label>
+				Model
+			</label>
+
+			<input type="text" name="model" />
+
+			<br />
+
+			<label>
+				Year
+			</label>
+
+			<input type="number" name="year" />
+
+			<br />
+
+			<label>
+				Features
+			</label>
+
+			<textarea name="features"></textarea>
+
+			<br />
+
+			<button type="submit" id="update-car">Update Car</button>
+		</form>
+
+		<script>
+			const apiHost = 'http://localhost:3000';
+
+			function getCar(e) {
+				e.preventDefault();
+				const id = document.getElementById('form-get').querySelector('input').value;
+				const endpoint = `/car/${id}`;
+
+				fetch(`${apiHost}${endpoint}`)
+					.then((response) => {
+						if (response.ok) {
+							return response.json();
+						}
+
+						throw new Error('Response not ok.');
+					})
+					.then((response) => {
+						document.getElementById('data-dump').innerHTML = JSON.stringify(response);
+					})
+					.catch((e) => {
+						document.getElementById('data-dump').innerHTML = 'Car does not exist';
+					});
+			}
+
+			function createCar(e) {
+				e.preventDefault();
+
+				const endpoint = '/car';
+				const formEl = document.getElementById('form-create');
+				const color = formEl.querySelector('[name="color"]').value;
+				const features = formEl.querySelector('textarea').value;
+				const make = formEl.querySelector('[name="make"]').value;
+				const model = formEl.querySelector('[name="model"]').value;
+				const year = formEl.querySelector('[name="year"]').value;
+
+				const reqBody = {
+				    year: year,
+				    make: make,
+				    model: model,
+				    color: color,
+				    features: features.split(',')
+				};
+
+				fetch(`${apiHost}${endpoint}`, {
+					method: 'POST',
+					mode: 'cors',
+					credentials: 'same-origin',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(reqBody)
+				})
+					.then((response) => {
+						if (response.ok) {
+							return response.json();
+						}
+
+						throw new Error('Response not ok.');
+					})
+					.then((response) => {
+						formEl.querySelector('span').innerHTML = JSON.stringify(response);
+					})
+					.catch((e) => console.error(e));
+			}
+
+			function updateCar() {
+				const endpoint = '/car';
+
+				fetch(`${apiHost}${endpoint}`)
+					.then((response) => {
+						if (response.ok) {
+							return response.json();
+						}
+
+						throw new Error('Response not ok.');
+					})
+					.then((response) => {
+						document.getElementById('data-dump').innerHTML = JSON.stringify(response);
+					})
+					.catch((e) => console.error(e));
+			}
+
+			document.getElementById('get-car').addEventListener('click', getCar);
+
+			document.getElementById('create-car').addEventListener('click', createCar);
+
+			document.getElementById('update-car').addEventListener('click', updateCar);
+		</script>
+	</body>
+</html>

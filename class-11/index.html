@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<title>App Calling API</title>
+	</head>
+
+	<body>
+		<button>
+			Call API
+		</button>
+
+		<div id="data-dump">
+
+		</div>
+
+		<script>
+			function callAPI() {
+				const apiHost = 'http://localhost:3000';
+				const endpoint = '/car/1';
+
+				fetch(`${apiHost}${endpoint}`)
+					.then((response) => {
+						if (response.ok) {
+							return response.json()
+						}
+
+						throw new Error('Response not ok.');
+					})
+					.then((response) => {
+						document.getElementById('data-dump').innerHTML = JSON.stringify(response);
+					})
+					.catch((e) => console.error(e));
+			}
+
+			document.querySelector('button').addEventListener('click', callAPI);
+		</script>
+	</body>
+</html>

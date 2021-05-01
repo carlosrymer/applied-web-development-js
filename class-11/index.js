@@ -16,18 +16,14 @@ app.get('/', (req, res) => {
 });
 
 // Get a car
-app.get('/car/:id', async (req, res) => { // This is a controller
-	try {
-		const car = await getCar(req.params.id);
+app.get('/car/:id', (req, res) => { // This is a controller
+	const car = getCar(req.params.id);
 
-		if (!car) {
-			return res.status(404).send({message: 'Car Not Found'});
-		}
-
-		res.send(car);
-	} catch(e) {
-		res.send(500).send({message: e.message});
+	if (!car) {
+		return res.status(404).send({message: 'Car Not Found'});
 	}
+
+	res.send(car);
 });
 
 // Get a car's color

@@ -1,0 +1,22 @@
+{
+  "name": "basic-app",
+  "version": "1.0.0",
+  "description": "A basic Express.js based app.",
+  "main": "index.js",
+  "scripts": {
+    "start": "./node_modules/.bin/nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "express"
+  ],
+  "author": "Carlos Rymer",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^5.3.0",
+    "mongoose": "^5.12.5",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.7"
+  }
+}
